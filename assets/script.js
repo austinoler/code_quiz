@@ -41,3 +41,40 @@ var questions = [
         correctAnswer: "element.addEventListener('event', function)"
     }
   ];
+
+  // Create variables to keep track of quiz state
+var currentQuestionIndex = 0;
+var score = 0;
+var timeLeft = 60; // Set the initial timer value in seconds
+var timerInterval;
+
+// Function to start the quiz
+function startQuiz() {
+  currentQuestionIndex = 0;
+  score = 0;
+  timeLeft = 60; // Reset the timer
+  startTimer(); // Start the timer
+  displayQuestion();
+}
+
+// Function to display a question and its choices
+function displayQuestion() {
+    var questionObj = questions[currentQuestionIndex];
+    var questionElement = document.getElementById("question");
+    questionElement.textContent = questionObj.question;
+  
+    var choicesContainer = document.getElementById("choices-container");
+    choicesContainer.innerHTML = "";
+  
+    for (var i = 0; i < questionObj.choices.length; i++) {
+      var choiceButton = document.createElement("button");
+      choiceButton.textContent = questionObj.choices[i];
+      choiceButton.setAttribute("class", "choice");
+      choiceButton.setAttribute("data-index", i);
+      choiceButton.addEventListener("click", function (event) {
+        checkAnswer(event.target.textContent);
+      });
+      choicesContainer.appendChild(choiceButton);
+    }
+  }
+  
