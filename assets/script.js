@@ -76,5 +76,36 @@ function displayQuestion() {
       });
       choicesContainer.appendChild(choiceButton);
     }
+  };
+  // Function to check the selected answer and proceed to the next question
+function checkAnswer(selectedAnswer) {
+  var questionObj = questions[currentQuestionIndex];
+  if (selectedAnswer === questionObj.correctAnswer) {
+    score++;
   }
-  
+  currentQuestionIndex++;
+  if (currentQuestionIndex < questions.length) {
+    displayQuestion();
+  } else {
+    endQuiz();
+  }
+}
+
+// Function to start the timer
+function startTimer() {
+  timerInterval = setInterval(function () {
+    var timeLeftElement = document.getElementById("time-left");
+    timeLeftElement.textContent = timeLeft;
+    timeLeft--;
+    if (timeLeft < 0) {
+      endQuiz();
+    }
+  }, 1000);
+}
+
+// Function to end the quiz
+function endQuiz() {
+  clearInterval(timerInterval);
+}
+
+document.querySelector("#start-button").addEventListener("click", startQuiz);
