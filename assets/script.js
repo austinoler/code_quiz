@@ -45,15 +45,15 @@ var questions = [
   // Create variables to keep track of quiz state
 var currentQuestionIndex = 0;
 var score = 0;
-var timeLeft = 60; // Set the initial timer value in seconds
+var timeLeft = 60; 
 var timerInterval;
 
 // Function to start the quiz
 function startQuiz() {
   currentQuestionIndex = 0;
   score = 0;
-  timeLeft = 60; // Reset the timer
-  startTimer(); // Start the timer
+  timeLeft = 60; 
+  startTimer(); 
   displayQuestion();
 }
 
@@ -78,18 +78,21 @@ function displayQuestion() {
     }
   };
   // Function to check the selected answer and proceed to the next question
-function checkAnswer(selectedAnswer) {
-  var questionObj = questions[currentQuestionIndex];
-  if (selectedAnswer === questionObj.correctAnswer) {
-    score++;
+  function checkAnswer(selectedAnswer) {
+    var questionObj = questions[currentQuestionIndex];
+    if (selectedAnswer === questionObj.correctAnswer) {
+      score++;
+    } else {
+      // Subtract time for incorrect answer
+      timeLeft -= 5; 
+    }
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+      displayQuestion();
+    } else {
+      endQuiz();
+    }
   }
-  currentQuestionIndex++;
-  if (currentQuestionIndex < questions.length) {
-    displayQuestion();
-  } else {
-    endQuiz();
-  }
-}
 
 // Function to start the timer
 function startTimer() {
@@ -106,6 +109,25 @@ function startTimer() {
 // Function to end the quiz
 function endQuiz() {
   clearInterval(timerInterval);
+  var initials = prompt("Enter your initials:");
+  saveScore(initials);
+  displayHighScores();
 }
 
+// Function to save the user's score
+function saveScore(initials) {
+  var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+  var newScore = { initials: initials, score: score };
+  highScores.push(newScore);
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+}
+
+// Function to display high scores
+function displayHighScores() {
+  var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+  highScores.sort(function (a, b) {
+    return b.score - a.score;
+});
+}
 document.querySelector("#start-button").addEventListener("click", startQuiz);
+
