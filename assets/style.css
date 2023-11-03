@@ -26,7 +26,7 @@ main {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-};
+}
 
 /* Question styles */
 #question-container {
@@ -50,7 +50,7 @@ main {
     border-radius: 4px;
     margin: 5px;
     cursor: pointer;
-    width: 100%; /* Make choice buttons full width */
+    width: 75%;
     transition: background-color 0.2s ease-in-out;
 }
 
@@ -80,7 +80,7 @@ input[type="text"] {
     border: none;
     border-radius: 4px;
     margin: 5px;
-    width: 100%; 
+    width: 100%;
 }
 
 #submit-score {
@@ -97,3 +97,32 @@ input[type="text"] {
     background-color: #00518b;
 }
 
+/* Reset feedback styles */
+#feedback {
+    color: #ffffff;
+}
+
+/* Additional button styling */
+button {
+    background-color: #007acc;
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #00518b;
+}
+
+/* Additional high scores styles */
+#high-scores-container {
+    text-align: center;
+}
+
+#high-scores-list {
+    list-style-type: none;
+    padding: 0;
+}
